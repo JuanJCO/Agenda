@@ -14,6 +14,9 @@
 		E14E095025F4532D00D7B235 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14E094F25F4532D00D7B235 /* RegisterViewController.swift */; };
 		E14E095925F459B400D7B235 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14E095825F459B400D7B235 /* ContactCell.swift */; };
 		E1C138C725F4ED84006015D9 /* AddContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C138C625F4ED84006015D9 /* AddContactViewController.swift */; };
+		E1C138CF25F50FBD006015D9 /* EditContactControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C138CE25F50FBD006015D9 /* EditContactControllerView.swift */; };
+		E1C138D425F53636006015D9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C138D325F53636006015D9 /* NetworkManager.swift */; };
+		E1C138E125F53AD0006015D9 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C138E025F53AD0006015D9 /* Data.swift */; };
 		E1C558D625F15F5100EA586E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C558D525F15F5100EA586E /* AppDelegate.swift */; };
 		E1C558D825F15F5100EA586E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C558D725F15F5100EA586E /* SceneDelegate.swift */; };
 		E1C558DA25F15F5100EA586E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C558D925F15F5100EA586E /* LoginViewController.swift */; };
@@ -55,6 +58,9 @@
 		E14E094F25F4532D00D7B235 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E14E095825F459B400D7B235 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
 		E1C138C625F4ED84006015D9 /* AddContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactViewController.swift; sourceTree = "<group>"; };
+		E1C138CE25F50FBD006015D9 /* EditContactControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContactControllerView.swift; sourceTree = "<group>"; };
+		E1C138D325F53636006015D9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		E1C138E025F53AD0006015D9 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		E1C558D225F15F5100EA586E /* Agenda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Agenda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1C558D525F15F5100EA586E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1C558D725F15F5100EA586E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +136,9 @@
 				E1C138C625F4ED84006015D9 /* AddContactViewController.swift */,
 				E14E094F25F4532D00D7B235 /* RegisterViewController.swift */,
 				E14E095825F459B400D7B235 /* ContactCell.swift */,
+				E1C138CE25F50FBD006015D9 /* EditContactControllerView.swift */,
+				E1C138D325F53636006015D9 /* NetworkManager.swift */,
+				E1C138E025F53AD0006015D9 /* Data.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -390,9 +399,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1C138D425F53636006015D9 /* NetworkManager.swift in Sources */,
+				E1C138E125F53AD0006015D9 /* Data.swift in Sources */,
 				E14E095925F459B400D7B235 /* ContactCell.swift in Sources */,
 				E1C558DA25F15F5100EA586E /* LoginViewController.swift in Sources */,
 				E1C138C725F4ED84006015D9 /* AddContactViewController.swift in Sources */,
+				E1C138CF25F50FBD006015D9 /* EditContactControllerView.swift in Sources */,
 				E14E095025F4532D00D7B235 /* RegisterViewController.swift in Sources */,
 				E1C558D625F15F5100EA586E /* AppDelegate.swift in Sources */,
 				E1C558D825F15F5100EA586E /* SceneDelegate.swift in Sources */,

@@ -13,47 +13,58 @@ class AddContactViewController: UIViewController{
     var addContact: UIButton?
     var nameText: String = ""
     var phoneText: String = ""
-    var nameArray: [String] = []
-    var phoneArray: [String] = []
     
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var phoneTF: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
     }
     
     @IBAction func addBtn(_ sender: Any) {
-        
         if (nameTF.hasText && phoneTF.hasText) {
             // Text field is not empty
             nameText = nameTF.text!
             phoneText = phoneTF.text!
             
-            nameArray.append(nameText)
-            phoneArray.append(phoneText)
+            Data.shared.nameArray.append(nameText)
+            Data.shared.phoneArray.append(phoneText)
             
-            print(nameArray)
-            print(phoneArray)
+            print("nombre", nameText)
+            print("tlf", phoneText)
+            print("array nombres", Data.shared.nameArray)
+            print("array phones", Data.shared.phoneArray)
+            
+            self.showToast(message: "Has añadido un contacto.", seconds: 1.0)
             
         } else {
-            // --- Si no has rellenado los campos, aparece esta alerta
-            // create the alert
-            let alert = UIAlertController(title: "", message: "Debes rellenar todos los campos.", preferredStyle: UIAlertController.Style.alert)
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
+            alert()
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if segue.destination is MainViewController {
-            let vc = segue.destination as? MainViewController
-            vc?.nameArray.append(contentsOf: nameArray)
-            vc?.phoneArray.append(contentsOf: phoneArray)
-        }
+    func alert(){
+        // --- Si no has rellenado los campos, aparece esta alerta
+        // create the alert
+        let alert = UIAlertController(title: "", message: "Debes rellenar todos los campos.", preferredStyle: UIAlertController.Style.alert)
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
     }
 }
+
+extension UIViewController{
+    // Cuando añades el contacto, aparece este "toast"
+    func showToast(message : String, seconds: Double){
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.view.backgroundColor = .black
+        alert.view.alpha = 0.5
+        alert.view.layer.cornerRadius = 15
+        self.present(alert, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+            alert.dismiss(animated: true)
+        }
+    }
+ }

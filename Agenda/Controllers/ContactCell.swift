@@ -16,8 +16,6 @@ class ContactCell: UITableViewCell{
     override func awakeFromNib() {
     super.awakeFromNib()
 
-        // SHADOW AND BORDER FOR CELL
-        //yourTableViewCell.contentView.layer.cornerRadius = 5
         self.contentView.layer.borderWidth = 0.5
         self.contentView.layer.borderColor = UIColor.lightGray.cgColor
         self.contentView.layer.masksToBounds = true
