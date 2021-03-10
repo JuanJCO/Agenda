@@ -26,11 +26,5 @@ class ContactCell: UITableViewCell{
         self.layer.masksToBounds = false
         self.layer.shadowPath = UIBezierPath(roundedRect:self.bounds, cornerRadius:self.contentView.layer.cornerRadius).cgPath
    }
- 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-       super.setSelected(selected, animated: animated)
- 
-       // Configure the view for the selected state
-        
-    }
+
 }

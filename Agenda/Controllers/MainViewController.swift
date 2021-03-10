@@ -17,6 +17,8 @@ class MainViewController: UIViewController{
     var nameArray: [String] = ["Test1"]
     var phoneArray: [String] = ["Test1"]
     
+    var currentUser: User?
+    
     @IBOutlet weak var tv: UITableView!
     
     override func viewDidLoad() {
@@ -27,14 +29,19 @@ class MainViewController: UIViewController{
     override func viewDidAppear(_ animated: Bool) {
         tv.reloadData()
         
-        if (Data.shared.nameArray.isEmpty){
+        if (NetworkManager.shared.checkUser()){
+            self.currentUser = NetworkManager.shared.getUser()
+            print(currentUser)
+        }
+        
+        if (AgendaData.shared.nameArray.isEmpty){
             print ("No tiene datos")
         } else{
             
-            print("Tiene (count): ", Data.shared.nameArray.count)
-            print("Puede tener (capacity): ", Data.shared.nameArray.capacity)
-            print(Data.shared.nameArray)
-            print(Data.shared.phoneArray)
+            print("Tiene (count): ", AgendaData.shared.nameArray.count)
+            print("Puede tener (capacity): ", AgendaData.shared.nameArray.capacity)
+            print(AgendaData.shared.nameArray)
+            print(AgendaData.shared.phoneArray)
         }
     }
 }
@@ -42,19 +49,19 @@ class MainViewController: UIViewController{
 extension MainViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Data.shared.nameArray.count
+        return AgendaData.shared.nameArray.count
         }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ContactCell
  
-        cell.labelCell.text = Data.shared.nameArray[indexPath.row]
-        cell.numberLabelCell.text = Data.shared.phoneArray[indexPath.row]
+        cell.labelCell.text = AgendaData.shared.nameArray[indexPath.row]
+        cell.numberLabelCell.text = AgendaData.shared.phoneArray[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        Data.shared.row = indexPath.row
+        AgendaData.shared.row = indexPath.row
     }
 }
 

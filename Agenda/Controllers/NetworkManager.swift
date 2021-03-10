@@ -10,63 +10,40 @@ import Alamofire
 
 class NetworkManager {
     
-    /*var APIKey = "****"
-    let GoogleAPIKey = "AIzaSyDk9iPMv0vXSZgTTrRU1O0UR3AyfA7c5A0"
-    let url = "https://contacts-bd.herokuapp.com/api"
-    var authResponse : Any = ""
-    //var foodResponse : Foods?
-    
-    let decoder = JSONDecoder()
-    
     static var shared: NetworkManager = NetworkManager()
     
-    func registerUser(email: String, password: String) -> Any {
+    let defaults = UserDefaults.standard
     
-        let registerURL = self.url + "/users/register"
-        let registerParameters =
-            [
-                "email" : email,
-                "password" : password
-        ]
+    func saveUser (userEmail: String, userPass: String, contacts: Contacts?){
+        let user = User(id: 1, userEmail: userEmail, userPass: userPass, apiToken: "apiToken", contacts: contacts!)
         
-        AF.request(registerURL, method: .post, parameters: registerParameters)
-            .validate()
-            .responseDecodable(of: UserResponse.self){ (response) in
-                guard let registerResponse = response.value else { return }
-                if(registerResponse.status == "OK"){
-                    self.APIKey = registerResponse.APIKey
-                    self.authResponse = registerResponse.status
-                }else if(registerResponse.status == "password"){
-                    self.authResponse = registerResponse.status
-                }else{
-                    self.authResponse = registerResponse.status
-                }
-            }
-        return self.authResponse
+        
+        // try sin "?" requiere un catch.
+        // Con "!" te lo fuerza.
+        // Con "?", si no lo puede codificar, continúa el código.
+        let encodedUser = try? JSONEncoder().encode(user)
+        self.defaults.setValue(encodedUser, forKey: "user")
     }
     
-    func loginUser(email: String, password: String) -> Any {
-        
-        let loginURL = self.url + "/users/login"
-        let loginParameters =
-            [
-            "email" : email,
-            "password" : password
-        ]
-        
-        AF.request(loginURL, method: .post, parameters: loginParameters)
-            .validate()//Checks is return HTTPstatus code in 200-299
-            .responseDecodable(of: UserResponse.self ){ (response)  in
-                guard let loginResponse = response.value else { return }
-                if(loginResponse.status == "OK"){
-                    self.APIKey = loginResponse.APIKey
-                    self.authResponse = loginResponse.status
-                }else if(loginResponse.status == "password"){
-                    self.authResponse = loginResponse.status
-                }else{
-                    self.authResponse = loginResponse.status
-                }
-            }
-        return self.authResponse*/
+    func checkUser () -> Bool {
+        if (self.defaults.object(forKey: "user") != nil){
+            return true
+        } else {
+            return false
+        }
     }
+    
+    func getUser() -> User {
+        
+        // Sirve para devolver un usuario temporal, si no entra en la condición
+        var tempUser = User(id: 0, userEmail: "usuarioNoVálido", userPass: "", apiToken: "", contacts: [])
+       
+        let currentUser: Data = self.defaults.object(forKey: "user") as! Data
+        if let decodedUser = try? JSONDecoder().decode(User.self, from: currentUser){
+            
+            return decodedUser
+        }
+        return tempUser
+    }
+}
 

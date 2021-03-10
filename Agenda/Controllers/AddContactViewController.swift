@@ -29,13 +29,13 @@ class AddContactViewController: UIViewController{
             nameText = nameTF.text!
             phoneText = phoneTF.text!
             
-            Data.shared.nameArray.append(nameText)
-            Data.shared.phoneArray.append(phoneText)
+            AgendaData.shared.nameArray.append(nameText)
+            AgendaData.shared.phoneArray.append(phoneText)
             
             print("nombre", nameText)
             print("tlf", phoneText)
-            print("array nombres", Data.shared.nameArray)
-            print("array phones", Data.shared.phoneArray)
+            print("array nombres", AgendaData.shared.nameArray)
+            print("array phones", AgendaData.shared.phoneArray)
             
             self.showToast(message: "Has añadido un contacto.", seconds: 1.0)
             

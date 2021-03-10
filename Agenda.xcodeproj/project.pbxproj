@@ -3,13 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		50A2FBFD98F1184EF0178FA1 /* Pods_Agenda.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 983D861470723B178BFD25B9 /* Pods_Agenda.framework */; };
 		5B3DBC54801073D2DDD7DC5B /* Pods_AgendaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8457C4DB22B0A616B9686511 /* Pods_AgendaTests.framework */; };
 		AE14C46FDD2BF25B5A76D804 /* Pods_Agenda_AgendaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 991E1F363EC163F1E2DAF3C7 /* Pods_Agenda_AgendaUITests.framework */; };
+		E14A609425F63ECE0025DE90 /* ForgotPassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14A609325F63ECE0025DE90 /* ForgotPassVC.swift */; };
 		E14E094B25F452C300D7B235 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14E094A25F452C300D7B235 /* MainViewController.swift */; };
 		E14E095025F4532D00D7B235 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14E094F25F4532D00D7B235 /* RegisterViewController.swift */; };
 		E14E095925F459B400D7B235 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14E095825F459B400D7B235 /* ContactCell.swift */; };
@@ -54,6 +55,7 @@
 		991E1F363EC163F1E2DAF3C7 /* Pods_Agenda_AgendaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Agenda_AgendaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4DC8FB7604F7C09AB5BBF83 /* Pods-AgendaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgendaTests.debug.xcconfig"; path = "Target Support Files/Pods-AgendaTests/Pods-AgendaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B821C4342F687B1B410FCA07 /* Pods-Agenda.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Agenda.release.xcconfig"; path = "Target Support Files/Pods-Agenda/Pods-Agenda.release.xcconfig"; sourceTree = "<group>"; };
+		E14A609325F63ECE0025DE90 /* ForgotPassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPassVC.swift; sourceTree = "<group>"; };
 		E14E094A25F452C300D7B235 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E14E094F25F4532D00D7B235 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E14E095825F459B400D7B235 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
@@ -132,9 +134,10 @@
 			isa = PBXGroup;
 			children = (
 				E1C558D925F15F5100EA586E /* LoginViewController.swift */,
+				E14E094F25F4532D00D7B235 /* RegisterViewController.swift */,
+				E14A609325F63ECE0025DE90 /* ForgotPassVC.swift */,
 				E14E094A25F452C300D7B235 /* MainViewController.swift */,
 				E1C138C625F4ED84006015D9 /* AddContactViewController.swift */,
-				E14E094F25F4532D00D7B235 /* RegisterViewController.swift */,
 				E14E095825F459B400D7B235 /* ContactCell.swift */,
 				E1C138CE25F50FBD006015D9 /* EditContactControllerView.swift */,
 				E1C138D325F53636006015D9 /* NetworkManager.swift */,
@@ -436,6 +439,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1C138D425F53636006015D9 /* NetworkManager.swift in Sources */,
+				E14A609425F63ECE0025DE90 /* ForgotPassVC.swift in Sources */,
 				E1C138E125F53AD0006015D9 /* Data.swift in Sources */,
 				E14E095925F459B400D7B235 /* ContactCell.swift in Sources */,
 				E1C558DA25F15F5100EA586E /* LoginViewController.swift in Sources */,

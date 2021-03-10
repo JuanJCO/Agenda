@@ -31,13 +31,13 @@ class EditContactControllerView: UIViewController, UITextFieldDelegate{
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        row = Data.shared.row
+        row = AgendaData.shared.row
         
         nameTF.isHidden = true
         phoneTF.isHidden = true
         
-        nameLabel.text = Data.shared.nameArray[row!]
-        phoneLabel.text = Data.shared.phoneArray[row!]
+        nameLabel.text = AgendaData.shared.nameArray[row!]
+        phoneLabel.text = AgendaData.shared.phoneArray[row!]
         
     }
     
@@ -57,7 +57,7 @@ class EditContactControllerView: UIViewController, UITextFieldDelegate{
             nameLabel.text = nameText
             nameTF.text = nameLabel.text
             
-            Data.shared.nameArray[row!] = nameText
+            AgendaData.shared.nameArray[row!] = nameText
             
             sender.setImage(UIImage(systemName: "pencil"), for: .normal)
         }
@@ -77,7 +77,7 @@ class EditContactControllerView: UIViewController, UITextFieldDelegate{
             phoneLabel.text = phoneText
             phoneTF.text = phoneLabel.text
             
-            Data.shared.phoneArray[row!] = phoneText
+            AgendaData.shared.phoneArray[row!] = phoneText
             
             sender.setImage(UIImage(systemName: "pencil"), for: .normal)
         }
