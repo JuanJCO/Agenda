@@ -20,7 +20,6 @@ class AddContactViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
     }
     
@@ -34,7 +33,6 @@ class AddContactViewController: UIViewController{
             let newContact = Contact(contactName: nameText, contactPhone: phoneText)
             
             AgendaData.shared.currentUser.contacts.append(newContact)
-            
             NetworkManager.shared.saveUser(userEmail: AgendaData.shared.currentUser.userEmail, userPass: AgendaData.shared.currentUser.userPass, contacts: AgendaData.shared.currentUser.contacts)
             
             self.showToast(message: "Has añadido un contacto.", seconds: 1.0)

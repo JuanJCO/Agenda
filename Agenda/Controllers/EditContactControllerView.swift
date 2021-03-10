@@ -83,4 +83,13 @@ class EditContactControllerView: UIViewController, UITextFieldDelegate{
         }
     }
     
+    @IBAction func deleteBtn(_ sender: Any) {
+        
+        AgendaData.shared.currentUser.contacts.remove(at: row!)
+        
+        NetworkManager.shared.saveUser(userEmail: AgendaData.shared.currentUser.userEmail, userPass: AgendaData.shared.currentUser.userPass, contacts: AgendaData.shared.currentUser.contacts)
+        
+    }
+    
+    
 }

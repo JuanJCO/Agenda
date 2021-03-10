@@ -21,7 +21,6 @@ struct User: Codable {
         case userPass = "user_Pass"
         case apiToken = "api_Token"
         case contacts
-        
     }
 }
 

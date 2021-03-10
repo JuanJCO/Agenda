@@ -56,7 +56,6 @@
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="okBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TGh-4q-VmO"/>
-                                                    <segue destination="D22-Ts-jpf" kind="presentation" identifier="contactsSegue" modalPresentationStyle="fullScreen" id="z9d-Ex-4oY"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="02f-7I-CZl">
@@ -128,6 +127,7 @@
                     <connections>
                         <outlet property="emailTF" destination="xf4-Rj-jFy" id="wwR-vV-kNy"/>
                         <outlet property="passTF" destination="X4h-MU-GeW" id="XYx-Up-5cz"/>
+                        <segue destination="D22-Ts-jpf" kind="presentation" identifier="contactsSegue" modalPresentationStyle="fullScreen" id="quG-cY-ugz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -392,7 +392,7 @@
                                                 <color key="backgroundColor" red="0.11072631526105746" green="0.14341014073028033" blue="0.16206406102035986" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <state key="normal" title="Añadir">
-                                                    <color key="titleColor" red="0.84047887840000002" green="0.56346584079999995" blue="0.21768447439999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -444,7 +444,7 @@
         <!--Profile VC-->
         <scene sceneID="h2K-nu-hu2">
             <objects>
-                <viewController id="wyO-ri-ChH" userLabel="Profile VC" sceneMemberID="viewController">
+                <viewController id="wyO-ri-ChH" userLabel="Profile VC" customClass="Settings" customModule="Agenda" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vaX-gb-FyP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -468,6 +468,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Do3-ct-xj7">
                                                 <rect key="frame" x="0.0" y="108" width="334" height="34"/>
                                                 <state key="normal" title="Enviar"/>
+                                                <connections>
+                                                    <action selector="okBTN:" destination="wyO-ri-ChH" eventType="touchUpInside" id="l3K-3Y-6YN"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -496,6 +499,9 @@
                                         <integer key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="deleteAccBTN:" destination="wyO-ri-ChH" eventType="touchUpInside" id="Hzw-q4-54T"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PERFIL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y7v-wl-VFh">
                                 <rect key="frame" x="142" y="130" width="130" height="48"/>
@@ -518,6 +524,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DTN-XE-75k"/>
+                    <connections>
+                        <outlet property="confirmPassTF" destination="iMI-Em-d4o" id="YOm-px-zyv"/>
+                        <outlet property="passTF" destination="H9b-Bs-gIb" id="vgm-PQ-hKR"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="deleteSegue" id="7ea-mc-5eR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vfu-Bx-nP0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -587,25 +598,54 @@
                                     <action selector="phoneBtn:" destination="9EE-cS-Uvn" eventType="touchUpInside" id="deV-rC-BDV"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BMH-BV-P37">
+                                <rect key="frame" x="120" y="408" width="174" height="36"/>
+                                <color key="backgroundColor" red="0.74809218899999996" green="0.34395297520000001" blue="0.34952845630000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Eliminar Contacto">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="deleteBtn:" destination="9EE-cS-Uvn" eventType="touchUpInside" id="oSM-ZS-KGB"/>
+                                    <segue destination="D22-Ts-jpf" kind="presentation" modalPresentationStyle="fullScreen" id="4lt-8o-NSM"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EDITAR CONTACTO" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CjU-dG-C3N">
+                                <rect key="frame" x="0.0" y="188" width="414" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" red="0.1107263153" green="0.14341014069999999" blue="0.16206406100000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="X4c-EB-atj"/>
-                        <color key="backgroundColor" red="0.19617390630000001" green="0.254560709" blue="0.28627800939999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="n3x-wf-NLj" firstAttribute="leading" secondItem="X4c-EB-atj" secondAttribute="leading" constant="20" id="2xC-o8-ky0"/>
                             <constraint firstItem="qeD-id-58V" firstAttribute="leading" secondItem="0d3-31-g60" secondAttribute="trailing" constant="5" id="6Ge-Oe-g5u"/>
                             <constraint firstItem="0d3-31-g60" firstAttribute="top" secondItem="n3x-wf-NLj" secondAttribute="bottom" constant="20" id="8s9-Qb-WuW"/>
+                            <constraint firstItem="BMH-BV-P37" firstAttribute="top" secondItem="0d3-31-g60" secondAttribute="bottom" constant="50" id="9jY-wf-FzB"/>
                             <constraint firstItem="qeD-id-58V" firstAttribute="leading" secondItem="c3i-64-ra1" secondAttribute="trailing" constant="5" id="BZO-Qr-fty"/>
                             <constraint firstItem="0d3-31-g60" firstAttribute="leading" secondItem="X4c-EB-atj" secondAttribute="leading" constant="20" id="CI8-5N-1eA"/>
+                            <constraint firstItem="BMH-BV-P37" firstAttribute="leading" secondItem="X4c-EB-atj" secondAttribute="leading" constant="120" id="IjI-9Q-Dku"/>
                             <constraint firstItem="X4c-EB-atj" firstAttribute="trailing" secondItem="kdu-LC-edR" secondAttribute="trailing" constant="20" id="Imc-pI-tqn"/>
                             <constraint firstItem="kdu-LC-edR" firstAttribute="top" secondItem="X4c-EB-atj" secondAttribute="top" constant="150" id="MTK-E4-QFX"/>
                             <constraint firstItem="kdu-LC-edR" firstAttribute="leading" secondItem="MaZ-p0-vTu" secondAttribute="trailing" constant="5" id="Nof-eG-vyB"/>
                             <constraint firstItem="n3x-wf-NLj" firstAttribute="top" secondItem="X4c-EB-atj" secondAttribute="top" constant="150" id="Sjo-8c-YIr"/>
                             <constraint firstItem="kdu-LC-edR" firstAttribute="leading" secondItem="n3x-wf-NLj" secondAttribute="trailing" constant="5" id="cly-ov-D4z"/>
+                            <constraint firstItem="X4c-EB-atj" firstAttribute="trailing" secondItem="BMH-BV-P37" secondAttribute="trailing" constant="120" id="e3c-QB-n4D"/>
                             <constraint firstItem="MaZ-p0-vTu" firstAttribute="top" secondItem="X4c-EB-atj" secondAttribute="top" constant="150" id="gfl-kp-pNq"/>
+                            <constraint firstItem="CjU-dG-C3N" firstAttribute="top" secondItem="X4c-EB-atj" secondAttribute="top" constant="100" id="hRi-g0-DKI"/>
                             <constraint firstItem="MaZ-p0-vTu" firstAttribute="leading" secondItem="X4c-EB-atj" secondAttribute="leading" constant="20" id="oBa-wa-H5B"/>
                             <constraint firstItem="c3i-64-ra1" firstAttribute="top" secondItem="n3x-wf-NLj" secondAttribute="bottom" constant="20" id="odQ-3Z-3Yn"/>
                             <constraint firstItem="qeD-id-58V" firstAttribute="top" secondItem="kdu-LC-edR" secondAttribute="bottom" constant="20" id="p57-zj-Bcg"/>
+                            <constraint firstItem="CjU-dG-C3N" firstAttribute="leading" secondItem="X4c-EB-atj" secondAttribute="leading" id="ppA-30-eun"/>
                             <constraint firstItem="X4c-EB-atj" firstAttribute="trailing" secondItem="qeD-id-58V" secondAttribute="trailing" constant="20" id="ppK-ep-aop"/>
+                            <constraint firstItem="X4c-EB-atj" firstAttribute="trailing" secondItem="CjU-dG-C3N" secondAttribute="trailing" id="rdm-nl-33Y"/>
                             <constraint firstItem="c3i-64-ra1" firstAttribute="leading" secondItem="X4c-EB-atj" secondAttribute="leading" constant="20" id="upD-dZ-EYi"/>
                         </constraints>
                     </view>
@@ -730,9 +770,11 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECUPERAR CONTRASEÑA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tlb-xR-yQT">
-                                <rect key="frame" x="45.333333333333343" y="232" width="323.66666666666663" height="30"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tlb-xR-yQT">
+                                <rect key="frame" x="71" y="166.33333333333334" width="272.33333333333331" height="95.666666666666657"/>
+                                <string key="text">RECUPERAR 
+CONTRASEÑA</string>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <color key="textColor" systemColor="systemBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -755,8 +797,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="quG-cY-ugz"/>
         <segue reference="z1b-ZV-isP"/>
-        <segue reference="VY5-uA-Sb7"/>
+        <segue reference="7ea-mc-5eR"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="pencil" catalog="system" width="128" height="113"/>
@@ -767,6 +810,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tertiarySystemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
