@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 class AddContactViewController: UIViewController{
     
@@ -25,17 +26,16 @@ class AddContactViewController: UIViewController{
     
     @IBAction func addBtn(_ sender: Any) {
         if (nameTF.hasText && phoneTF.hasText) {
-            // Text field is not empty
+            
             nameText = nameTF.text!
             phoneText = phoneTF.text!
             
-            AgendaData.shared.nameArray.append(nameText)
-            AgendaData.shared.phoneArray.append(phoneText)
+            // Creo un nuevo contacto y lo guardo en el currentUser y el 'user' guardado en las Defaults
+            let newContact = Contact(contactName: nameText, contactPhone: phoneText)
             
-            print("nombre", nameText)
-            print("tlf", phoneText)
-            print("array nombres", AgendaData.shared.nameArray)
-            print("array phones", AgendaData.shared.phoneArray)
+            AgendaData.shared.currentUser.contacts.append(newContact)
+            
+            NetworkManager.shared.saveUser(userEmail: AgendaData.shared.currentUser.userEmail, userPass: AgendaData.shared.currentUser.userPass, contacts: AgendaData.shared.currentUser.contacts)
             
             self.showToast(message: "Has añadido un contacto.", seconds: 1.0)
             

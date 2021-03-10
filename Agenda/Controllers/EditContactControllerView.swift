@@ -36,8 +36,8 @@ class EditContactControllerView: UIViewController, UITextFieldDelegate{
         nameTF.isHidden = true
         phoneTF.isHidden = true
         
-        nameLabel.text = AgendaData.shared.nameArray[row!]
-        phoneLabel.text = AgendaData.shared.phoneArray[row!]
+        nameLabel.text = AgendaData.shared.currentUser.contacts[row!].contactName
+        phoneLabel.text = AgendaData.shared.currentUser.contacts[row!].contactPhone
         
     }
     
@@ -57,7 +57,7 @@ class EditContactControllerView: UIViewController, UITextFieldDelegate{
             nameLabel.text = nameText
             nameTF.text = nameLabel.text
             
-            AgendaData.shared.nameArray[row!] = nameText
+            AgendaData.shared.currentUser.contacts[row!].contactName = nameText
             
             sender.setImage(UIImage(systemName: "pencil"), for: .normal)
         }
@@ -77,7 +77,7 @@ class EditContactControllerView: UIViewController, UITextFieldDelegate{
             phoneLabel.text = phoneText
             phoneTF.text = phoneLabel.text
             
-            AgendaData.shared.phoneArray[row!] = phoneText
+            AgendaData.shared.currentUser.contacts[row!].contactPhone = phoneText
             
             sender.setImage(UIImage(systemName: "pencil"), for: .normal)
         }

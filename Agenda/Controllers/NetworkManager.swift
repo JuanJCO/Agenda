@@ -11,12 +11,12 @@ import Alamofire
 class NetworkManager {
     
     static var shared: NetworkManager = NetworkManager()
-    
     let defaults = UserDefaults.standard
     
-    func saveUser (userEmail: String, userPass: String, contacts: Contacts?){
-        let user = User(id: 1, userEmail: userEmail, userPass: userPass, apiToken: "apiToken", contacts: contacts!)
-        
+    
+    
+    func saveUser (userEmail: String, userPass: String, contacts: Contacts){
+        let user = User(id: 1, userEmail: userEmail, userPass: userPass, apiToken: "apiToken", contacts: contacts)
         
         // try sin "?" requiere un catch.
         // Con "!" te lo fuerza.
@@ -40,7 +40,6 @@ class NetworkManager {
        
         let currentUser: Data = self.defaults.object(forKey: "user") as! Data
         if let decodedUser = try? JSONDecoder().decode(User.self, from: currentUser){
-            
             return decodedUser
         }
         return tempUser

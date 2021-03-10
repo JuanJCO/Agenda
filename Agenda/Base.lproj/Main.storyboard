@@ -56,6 +56,7 @@
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="okBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TGh-4q-VmO"/>
+                                                    <segue destination="D22-Ts-jpf" kind="presentation" identifier="contactsSegue" modalPresentationStyle="fullScreen" id="z9d-Ex-4oY"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="02f-7I-CZl">
@@ -199,6 +200,9 @@
                                                 <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="show" id="VY5-uA-Sb7"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -752,6 +756,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="z1b-ZV-isP"/>
+        <segue reference="VY5-uA-Sb7"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="pencil" catalog="system" width="128" height="113"/>

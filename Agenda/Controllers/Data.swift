@@ -41,12 +41,10 @@ struct Contact: Codable {
 class AgendaData{
     static var shared: AgendaData  = AgendaData()
     
-    var currentUser: User?
-    var nameArray: [String] = ["TestNombre1"]
-    var phoneArray: [String] = ["1111"]
+    var currentUser: User = User(id: 0, userEmail: "usuarioNoVálido", userPass: "", apiToken: "", contacts: [])
     var row: Int?
-    var userName: [String] = [""]
-    var userPass: [String] = [""]
     
 }
+
+
 

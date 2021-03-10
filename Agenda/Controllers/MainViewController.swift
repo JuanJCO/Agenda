@@ -12,12 +12,7 @@ class MainViewController: UIViewController{
 
     static var shared: MainViewController = MainViewController()
     
-    var nameText: String = ""
-    var phoneText: String = ""
-    var nameArray: [String] = ["Test1"]
-    var phoneArray: [String] = ["Test1"]
-    
-    var currentUser: User?
+//    var currentUser: User?
     
     @IBOutlet weak var tv: UITableView!
     
@@ -29,34 +24,20 @@ class MainViewController: UIViewController{
     override func viewDidAppear(_ animated: Bool) {
         tv.reloadData()
         
-        if (NetworkManager.shared.checkUser()){
-            self.currentUser = NetworkManager.shared.getUser()
-            print(currentUser)
-        }
-        
-        if (AgendaData.shared.nameArray.isEmpty){
-            print ("No tiene datos")
-        } else{
-            
-            print("Tiene (count): ", AgendaData.shared.nameArray.count)
-            print("Puede tener (capacity): ", AgendaData.shared.nameArray.capacity)
-            print(AgendaData.shared.nameArray)
-            print(AgendaData.shared.phoneArray)
-        }
     }
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return AgendaData.shared.nameArray.count
+        return AgendaData.shared.currentUser.contacts.count
         }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ContactCell
- 
-        cell.labelCell.text = AgendaData.shared.nameArray[indexPath.row]
-        cell.numberLabelCell.text = AgendaData.shared.phoneArray[indexPath.row]
+        cell.labelCell.text = AgendaData.shared.currentUser.contacts[indexPath.row].contactName
+        cell.numberLabelCell.text = AgendaData.shared.currentUser.contacts[indexPath.row].contactPhone
         return cell
     }
     
