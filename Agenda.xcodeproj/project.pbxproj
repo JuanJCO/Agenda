@@ -14,6 +14,9 @@
 		E14E094B25F452C300D7B235 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14E094A25F452C300D7B235 /* MainViewController.swift */; };
 		E14E095025F4532D00D7B235 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14E094F25F4532D00D7B235 /* RegisterViewController.swift */; };
 		E14E095925F459B400D7B235 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14E095825F459B400D7B235 /* ContactCell.swift */; };
+		E156933526040F0200B911D1 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = E156933426040F0200B911D1 /* Login.swift */; };
+		E156933A2604CB5D00B911D1 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15693392604CB5D00B911D1 /* Contact.swift */; };
+		E156933F260556A600B911D1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E156933E260556A600B911D1 /* User.swift */; };
 		E1624E5525F979E000408E9A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1624E5425F979E000408E9A /* Settings.swift */; };
 		E1C138C725F4ED84006015D9 /* AddContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C138C625F4ED84006015D9 /* AddContactViewController.swift */; };
 		E1C138CF25F50FBD006015D9 /* EditContactControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C138CE25F50FBD006015D9 /* EditContactControllerView.swift */; };
@@ -60,6 +63,9 @@
 		E14E094A25F452C300D7B235 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E14E094F25F4532D00D7B235 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		E14E095825F459B400D7B235 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
+		E156933426040F0200B911D1 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		E15693392604CB5D00B911D1 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		E156933E260556A600B911D1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E1624E5425F979E000408E9A /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		E1C138C625F4ED84006015D9 /* AddContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactViewController.swift; sourceTree = "<group>"; };
 		E1C138CE25F50FBD006015D9 /* EditContactControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContactControllerView.swift; sourceTree = "<group>"; };
@@ -149,6 +155,16 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		E156933326040EE900B911D1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E156933426040F0200B911D1 /* Login.swift */,
+				E15693392604CB5D00B911D1 /* Contact.swift */,
+				E156933E260556A600B911D1 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		E1C558C925F15F5100EA586E = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +190,7 @@
 		E1C558D425F15F5100EA586E /* Agenda */ = {
 			isa = PBXGroup;
 			children = (
+				E156933326040EE900B911D1 /* Models */,
 				E14E095425F4533300D7B235 /* Controllers */,
 				E1C558D525F15F5100EA586E /* AppDelegate.swift */,
 				E1C558D725F15F5100EA586E /* SceneDelegate.swift */,
@@ -443,10 +460,13 @@
 			files = (
 				E1C138D425F53636006015D9 /* NetworkManager.swift in Sources */,
 				E14A609425F63ECE0025DE90 /* ForgotPassVC.swift in Sources */,
+				E156933526040F0200B911D1 /* Login.swift in Sources */,
 				E1C138E125F53AD0006015D9 /* Data.swift in Sources */,
 				E14E095925F459B400D7B235 /* ContactCell.swift in Sources */,
 				E1C558DA25F15F5100EA586E /* LoginViewController.swift in Sources */,
+				E156933A2604CB5D00B911D1 /* Contact.swift in Sources */,
 				E1C138C725F4ED84006015D9 /* AddContactViewController.swift in Sources */,
+				E156933F260556A600B911D1 /* User.swift in Sources */,
 				E1624E5525F979E000408E9A /* Settings.swift in Sources */,
 				E1C138CF25F50FBD006015D9 /* EditContactControllerView.swift in Sources */,
 				E14E095025F4532D00D7B235 /* RegisterViewController.swift in Sources */,

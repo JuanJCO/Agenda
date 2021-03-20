@@ -12,11 +12,10 @@ import Alamofire
 class AddContactViewController: UIViewController{
     
     var addContact: UIButton?
-    var nameText: String = ""
-    var phoneText: String = ""
     
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var phoneTF: UITextField!
+    @IBOutlet weak var mailTF: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,26 +25,31 @@ class AddContactViewController: UIViewController{
     @IBAction func addBtn(_ sender: Any) {
         if (nameTF.hasText && phoneTF.hasText) {
             
-            nameText = nameTF.text!
-            phoneText = phoneTF.text!
+            let nameText = nameTF.text!
+            let phoneText = phoneTF.text!
+            let mailText = mailTF.text!
             
-            // Creo un nuevo contacto y lo guardo en el currentUser y el 'user' guardado en las Defaults
-            let newContact = Contact(contactName: nameText, contactPhone: phoneText)
-            
-            AgendaData.shared.currentUser.contacts.append(newContact)
-            NetworkManager.shared.saveUser(userEmail: AgendaData.shared.currentUser.userEmail, userPass: AgendaData.shared.currentUser.userPass, contacts: AgendaData.shared.currentUser.contacts)
-            
-            self.showToast(message: "Has añadido un contacto.", seconds: 1.0)
-            
+            NetworkManager.shared.newContact(name: nameText, phone: phoneText, mail: mailText, completionHandler: { [self]
+                    success in
+                
+                if success {
+                    self.showToast(message: "Has añadido un contacto.", seconds: 0.5)
+                    nameTF.text = nil
+                    phoneTF.text = nil
+                    mailTF.text = nil
+                } else {
+                    self.alert(alertText: "Ha habido un error.")
+                }
+            })
         } else {
-            alert()
+            alert(alertText: "Debes rellenar todos los campos.")
         }
     }
     
-    func alert(){
+    func alert(alertText: String){
         // --- Si no has rellenado los campos, aparece esta alerta
         // create the alert
-        let alert = UIAlertController(title: "", message: "Debes rellenar todos los campos.", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "", message: alertText, preferredStyle: UIAlertController.Style.alert)
         // add an action (button)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert

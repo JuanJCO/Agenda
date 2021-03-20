@@ -19,31 +19,40 @@ class MainViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        tv.reloadData()
-        
+    override func viewWillAppear(_ animated: Bool) {
+        NetworkManager.shared.showContacts(completionHandler: {
+            contacts in
+            
+            ContactClass.shared.contactsArray = contacts
+
+            print("ContactClass", ContactClass.shared.contactsArray)
+            
+            self.tv.reloadData()
+        })
     }
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return AgendaData.shared.currentUser.contacts.count
+        return ContactClass.shared.contactsArray.count
         }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ContactCell
-        cell.labelCell.text = AgendaData.shared.currentUser.contacts[indexPath.row].contactName
-        cell.numberLabelCell.text = AgendaData.shared.currentUser.contacts[indexPath.row].contactPhone
+        cell.labelCell.text = ContactClass.shared.contactsArray[indexPath.row].name
+        cell.numberLabelCell.text = ContactClass.shared.contactsArray[indexPath.row].phone
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         AgendaData.shared.row = indexPath.row
     }
+    
 }
 
 

@@ -20,20 +20,28 @@ class LoginViewController: UIViewController {
     
     @IBAction func okBtn(_ sender: Any) {
         
+        let activityIndicator = UIActivityIndicatorView(style: .white) // Create the activity indicator
+        view.addSubview(activityIndicator) // add it as a  subview
+        activityIndicator.center = CGPoint(x: view.frame.size.width*0.5, y: view.frame.size.height*0.75) // put in the middle
+        activityIndicator.startAnimating() // Start animating
+        
         let emailText = emailTF.text
         let passText = passTF.text
         
         if (emailTF.hasText && passTF.hasText){
             // Comprueba que haya algún elemento 'User'
-            if (NetworkManager.shared.checkUser()) {
-                AgendaData.shared.currentUser = NetworkManager.shared.getUser()
-                // Comprueba que los datos introducidos coincidan con los de 'User'
-                if (emailText == AgendaData.shared.currentUser.userEmail && passText == AgendaData.shared.currentUser.userPass){
+    
+            NetworkManager.shared.login(email: emailText!, pass: passText!, completionHandler: {
+                success in
+                
+                if success {
+                    activityIndicator.stopAnimating()
                     self.performSegue(withIdentifier: "contactsSegue", sender: Any?.self)
                 } else {
-                    alert(alertText: "El e-mail o la contraseña no corresponden a ningún usuario.")
+                    activityIndicator.stopAnimating()
+                    self.alert(alertText: "Ha habido un error.")
                 }
-            }
+            })
         } else {
             alert(alertText: "Debes rellenar todos los campos.")
         }

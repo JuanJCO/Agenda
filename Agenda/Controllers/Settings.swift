@@ -11,8 +11,21 @@ import Alamofire
 
 class Settings: UIViewController{
     
+    @IBOutlet weak var nameTF: UITextField!
+    @IBOutlet weak var mailTF: UITextField!
     @IBOutlet weak var passTF: UITextField!
     @IBOutlet weak var confirmPassTF: UITextField!
+    
+    override func viewDidLoad() {
+        NetworkManager.shared.getUser(completionHandler: { [self]
+            user in
+            
+            if user != nil{
+                nameTF.text = user.user.name
+                mailTF.text = user.user.email
+            }
+        })
+    }
     
     @IBAction func okBTN(_ sender: Any) {
         if (passTF.hasText && confirmPassTF.hasText){
@@ -36,11 +49,14 @@ class Settings: UIViewController{
     }
     
     @IBAction func deleteAccBTN(_ sender: Any) {
-        NetworkManager.shared.defaults.removeObject(forKey: "user")
-        NetworkManager.shared.checkUser()
-        AgendaData.shared.currentUser = User(id: 0, userEmail: "", userPass: "", apiToken: "", contacts: [])
+        NetworkManager.shared.deleteUser(completionHandler: {
+            success in
+            
+            if success {
+                self.performSegue(withIdentifier: "deleteSegue", sender: Any?.self)
+            }
+        })
         
-        self.performSegue(withIdentifier: "deleteSegue", sender: Any?.self)
     }
     
     func alert(message: String){

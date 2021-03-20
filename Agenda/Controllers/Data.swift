@@ -40,6 +40,8 @@ struct Contact: Codable {
 class AgendaData{
     static var shared: AgendaData  = AgendaData()
     
+
+    var showContactsVar = ""
     var currentUser: User = User(id: 0, userEmail: "usuarioNoVálido", userPass: "", apiToken: "", contacts: [])
     var row: Int?
     

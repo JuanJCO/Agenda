@@ -12,8 +12,8 @@ class NetworkManager {
     
     static var shared: NetworkManager = NetworkManager()
     let defaults = UserDefaults.standard
-    let url = URL(string: "APIUrl")
-    let apiKey = "APIKey"
+    let url = "https://agenda-app-service.herokuapp.com/api/"
+    var token = ""
     
     // ----------
     // DEFAULT
@@ -54,79 +54,311 @@ class NetworkManager {
     // CAPA DE RED (Peticiones)
     // --------------------
     
-    func login(user: String, pass: String) {
+    func register(name: String, email:String, pass: String, confirmPass: String, completionHandler: @escaping(Bool)->Void){
+        
         let queryParameters = [
-                "user": user,
-                "pass": pass]
+            "name": name,
+            "email": email,
+            "password": pass,
+            "password_confirmation": confirmPass]
+        
+        let registerUrl = URL(string: url + "register")
+        AF.request(registerUrl!, method: .post, parameters: queryParameters, encoding: URLEncoding(destination: .queryString), headers: nil).validate().response {
+            response in
             
-            AF.request(self.url as! URLConvertible, method: .get, parameters: queryParameters, encoding: URLEncoding(destination: .queryString), headers: nil).responseDecodable(of: User.self){
-                response in
+            if (response.error == nil){
+                completionHandler(true)
+            } else {
+                completionHandler(false)
             }
         }
+    }
+    
+    func login(email: String, pass: String, completionHandler: @escaping(Bool)->Void) {
         
-    func register(user: String, pass: String){
         let queryParameters = [
-            "user": user,
-            "pass": pass]
+                "email": email,
+                "password": pass]
+            
+        let loginUrl = URL(string: url + "login")
+        AF.request(loginUrl!, method: .post, parameters: queryParameters, encoding: URLEncoding(destination: .queryString), headers: nil).validate().response {
+                response in
+            
+                if (response.error == nil){
+                    do {
+                        let user = try JSONDecoder().decode(Login.self, from: response.data!)
+                        self.token = user.token
+                        print(self.token)
+                        completionHandler(true)
+                    } catch {
+                    }
+                } else {
+                    completionHandler(false)
+                }
+            }
+    }
+    
+    func updateUser(name: String, email: String, password: String ,completionHandler: @escaping(Bool) -> Void) {
         
-        AF.request(self.url as! URLConvertible, method: .post, parameters: queryParameters, encoding: URLEncoding(destination: .queryString), headers: nil).responseDecodable(of: User.self){
-            response in
+        
+    }
+    
+    func newContact(name: String, phone: String, mail: String, completionHandler: @escaping(Bool)->Void) {
+        struct Contact: Encodable {
+            let name: String
+            let mail: String
+            let phone: String
+        }
+
+        //alamcenamos la URL de la api en una varianle
+        let newContactUrl = URL(string: "https://agenda-app-service.herokuapp.com/api/contact/create")
+
+        //preparamos las variables a enviar
+        let contact: [String:Any] = ["name": name, "mail": mail, "phone": phone]
+
+        print(register)
+
+        //las transformamos en JSON
+        let jsonContact = try? JSONSerialization.data(
+        withJSONObject: contact)
+
+        //llamamos a la request, dandole la url
+        var request = URLRequest(url: newContactUrl!)
+
+        //se le indica el protocolo con el que se envia
+        request.httpMethod = "POST"
+
+        //se le indica el contenido del body
+        request.httpBody = jsonContact
+
+        //el header
+        request.headers = ["Content-Type": "application/json",
+                           "Authorization":"Bearer" + token]
+
+        //se envia la peticion usando alamofire
+        AF.request(request).validate().responseJSON  { response in
+        debugPrint(response)
+
+            if(response.error == nil){
+                completionHandler(true)
+            }else{
+                completionHandler(false)
+            }
         }
     }
     
-    func newPass(newPass: String){
-        let queryParameters = [
-            "pass": newPass]
+    func showContacts(completionHandler: @escaping([ContactElement])->Void) {
         
-        let headers: HTTPHeaders = ["Authorization": self.apiKey]
+        let showContactsURL = URL(string: "https://agenda-app-service.herokuapp.com/api/contact/index")
+        var contact: [ContactElement] = []
         
-        AF.request(self.url as! URLConvertible, method: .post, parameters: queryParameters, encoding: URLEncoding(destination: .queryString), headers: headers ).responseDecodable(of: User.self){
+        var request = URLRequest(url: showContactsURL!)
+
+        //se le indica el protocolo con el que se envia
+        request.httpMethod = "GET"
+
+        //el header
+        request.headers = ["Content-Type": "application/json",
+                           "Authorization":"Bearer" + token]
+        
+        AF.request(request).validate().responseJSON {
             response in
+            
+            debugPrint("response",response)
+            
+            if (response.error == nil) {
+                do {
+                    contact = try JSONDecoder().decode([ContactElement].self, from: response.data!)
+                    debugPrint(contact)
+                    completionHandler(contact)
+                
+                } catch {
+                    print("no hay contactos")
+                }
+            }
+        }
+    }
+
+    func editContact(id:Int, name: String, phone: String, mail: String, completionHandler: @escaping(Bool)->Void) {
+        struct Contact: Encodable {
+            let name: String
+            let mail: String
+            let phone: String
+        }
+
+        var stringId = String(id)
+        //alamcenamos la URL de la api en una varianle
+        let editContactUrl = URL(string: "https://agenda-app-service.herokuapp.com/api/contact/update/"+stringId)
+
+        //preparamos las variables a enviar
+        let contact: [String:Any] = ["name": name, "mail": mail, "phone": phone]
+
+        //las transformamos en JSON
+        let jsonContact = try? JSONSerialization.data(
+        withJSONObject: contact)
+
+        //llamamos a la request, dandole la url
+        var request = URLRequest(url: editContactUrl!)
+
+        //se le indica el protocolo con el que se envia
+        request.httpMethod = "POST"
+
+        //se le indica el contenido del body
+        request.httpBody = jsonContact
+
+        //el header
+        request.headers = ["Content-Type": "application/json",
+                           "Authorization":"Bearer" + token]
+
+        //se envia la peticion usando alamofire
+        AF.request(request).validate().responseJSON  { response in
+        debugPrint(response)
+
+            if(response.error == nil){
+                completionHandler(true)
+            }else{
+                completionHandler(false)
+            }
         }
     }
     
-    func newContact(contact: Contact){
-        let queryParameters = [
-            "contact": contact]
-        
-        let headers: HTTPHeaders = ["Authorization": self.apiKey]
-        
-        AF.request(self.url as! URLConvertible, method: .post, parameters: queryParameters, encoding: URLEncoding(destination: .queryString), headers: headers ).responseDecodable(of: User.self){
-            response in
+    func deleteContact(id:Int, completionHandler: @escaping(Bool)->Void) {
+        //alamcenamos la URL de la api en una varianle
+        let editContactUrl = URL(string: "https://agenda-app-service.herokuapp.com/api/contact/delete")
+
+        //preparamos las variables a enviar
+        let contact: [String:Any] = ["id": id]
+
+        //las transformamos en JSON
+        let jsonContact = try? JSONSerialization.data(
+        withJSONObject: contact)
+
+        //llamamos a la request, dandole la url
+        var request = URLRequest(url: editContactUrl!)
+
+        //se le indica el protocolo con el que se envia
+        request.httpMethod = "POST"
+
+        //se le indica el contenido del body
+        request.httpBody = jsonContact
+
+        //el header
+        request.headers = ["Content-Type": "application/json",
+                           "Authorization":"Bearer" + token]
+
+        //se envia la peticion usando alamofire
+        AF.request(request).validate().responseJSON  { response in
+        debugPrint(response)
+
+            if(response.error == nil){
+                completionHandler(true)
+            }else{
+                completionHandler(false)
+            }
+        }
+    }
+
+    func getUser(completionHandler: @escaping (UserElement) -> Void) {
+        let getUserUrl = URL(string: "https://agenda-app-service.herokuapp.com/api/user")
+
+
+        //llamamos a la request, dandole la url
+        var request = URLRequest(url: getUserUrl!)
+
+        //se le indica el protocolo con el que se envia
+        request.httpMethod = "GET"
+
+        //el header
+        request.headers = ["Content-Type": "application/json",
+                           "Authorization":"Bearer" + token]
+
+        //se envia la peticion usando alamofire
+        AF.request(request).validate().responseJSON  { response in
+        debugPrint(response)
+
+
+            do {
+                let user = try JSONDecoder().decode(UserElement.self, from: response.data!)
+                debugPrint(user)
+                completionHandler(user)
+            
+            } catch {
+                print("no hay contactos")
+            }
         }
     }
     
-    func editContact(contactAt: Int, contact: Contact){
-        let queryParameters = [
-            "contact_At": contactAt,
-            "contact": contact] as [String : Any]
-        
-        let headers: HTTPHeaders = ["Authorization": self.apiKey]
-        
-        AF.request(self.url as! URLConvertible, method: .post, parameters: queryParameters, encoding: URLEncoding(destination: .queryString), headers: headers ).responseDecodable(of: User.self){
-            response in
+    func deleteUser(completionHandler: @escaping (Bool) -> Void){
+        //alamcenamos la URL de la api en una varianle
+        let deleteUserUrl = URL(string: "https://agenda-app-service.herokuapp.com/api/deleteUser")
+
+        //llamamos a la request, dandole la url
+        var request = URLRequest(url: deleteUserUrl!)
+
+        //se le indica el protocolo con el que se envia
+        request.httpMethod = "POST"
+
+        //el header
+        request.headers = ["Content-Type": "application/json",
+                           "Authorization":"Bearer" + token]
+
+        //se envia la peticion usando alamofire
+        AF.request(request).validate().responseJSON  { response in
+        debugPrint(response)
+
+            if(response.error == nil){
+                completionHandler(true)
+            }else{
+                completionHandler(false)
+            }
         }
     }
     
-    func deleteContact(contactAt: Int){
-        let queryParameters = [
-            "contact_At": contactAt]
-        
-        let headers: HTTPHeaders = ["Authorization": self.apiKey]
-        
-        AF.request(self.url as! URLConvertible, method: .post, parameters: queryParameters, encoding: URLEncoding(destination: .queryString), headers: headers ).responseDecodable(of: User.self){
-            response in
-        }
-    }
-    
-    func deleteUser(contactAt: Int){
-        let queryParameters = [
-            "contact_At": contactAt]
-        
-        let headers: HTTPHeaders = ["Authorization": self.apiKey]
-        
-        AF.request(self.url as! URLConvertible, method: .post, parameters: queryParameters, encoding: URLEncoding(destination: .queryString), headers: headers ).responseDecodable(of: String.self){
-            response in
+    func forgot(email: String,completionHandler: @escaping(Bool)->Void){
+
+        struct forgot: Encodable {
+
+                    let email: String
+                }
+
+        //alamcenamos la URL de la api en una varianle
+        let url = URL(string: "https://agenda-app-service.herokuapp.com/api/password/email")
+
+        //preparamos las variables a enviar
+        let contact: [String:Any] = [ "email": email]
+
+        //las transformamos en JSON
+        let jsonLogin = try? JSONSerialization.data(
+            withJSONObject: contact,
+            options: [])
+
+        //llamamos a la request, dandole la url
+        var request = URLRequest(url: url!)
+
+        //se le indica el protocolo con el que se envia
+        request.httpMethod = "POST"
+
+        //se le indica el contenido del body
+        request.httpBody = jsonLogin
+
+        //el header
+        request.headers = ["Content-Type": "application/json"]
+
+        //se envia la peticion usando alamofire
+        AF.request(request).validate().response()
+            { response in
+
+            debugPrint(response)
+
+            if(response.error == nil){
+
+                completionHandler(true)
+
+            }else {
+
+                completionHandler(false)
+
+            }
         }
     }
 }

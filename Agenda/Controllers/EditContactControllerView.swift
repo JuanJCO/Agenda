@@ -36,8 +36,8 @@ class EditContactControllerView: UIViewController, UITextFieldDelegate{
         nameTF.isHidden = true
         phoneTF.isHidden = true
         
-        nameLabel.text = AgendaData.shared.currentUser.contacts[row!].contactName
-        phoneLabel.text = AgendaData.shared.currentUser.contacts[row!].contactPhone
+        nameLabel.text = ContactClass.shared.contactsArray[row!].name
+        phoneLabel.text = ContactClass.shared.contactsArray[row!].phone
         
     }
     
@@ -57,7 +57,7 @@ class EditContactControllerView: UIViewController, UITextFieldDelegate{
             nameLabel.text = nameText
             nameTF.text = nameLabel.text
             
-            AgendaData.shared.currentUser.contacts[row!].contactName = nameText
+            ContactClass.shared.contactsArray[row!].name = nameText
             
             sender.setImage(UIImage(systemName: "pencil"), for: .normal)
         }
@@ -77,7 +77,7 @@ class EditContactControllerView: UIViewController, UITextFieldDelegate{
             phoneLabel.text = phoneText
             phoneTF.text = phoneLabel.text
             
-            AgendaData.shared.currentUser.contacts[row!].contactPhone = phoneText
+            ContactClass.shared.contactsArray[row!].phone = phoneText
             
             sender.setImage(UIImage(systemName: "pencil"), for: .normal)
         }
@@ -85,10 +85,20 @@ class EditContactControllerView: UIViewController, UITextFieldDelegate{
     
     @IBAction func deleteBtn(_ sender: Any) {
         
-        AgendaData.shared.currentUser.contacts.remove(at: row!)
-        
-        NetworkManager.shared.saveUser(userEmail: AgendaData.shared.currentUser.userEmail, userPass: AgendaData.shared.currentUser.userPass, contacts: AgendaData.shared.currentUser.contacts)
-        
+        NetworkManager.shared.deleteContact(id: ContactClass.shared.contactsArray[row!].id, completionHandler: {
+            success in
+            
+            if success {
+                self.performSegue(withIdentifier: "deleteContactSegue", sender: Any?.self)
+            }
+
+        })
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NetworkManager.shared.editContact(id: ContactClass.shared.contactsArray[row!].id , name: ContactClass.shared.contactsArray[row!].name, phone: ContactClass.shared.contactsArray[row!].phone, mail: ContactClass.shared.contactsArray[row!].mail, completionHandler: {
+                success in
+        })
     }
     
     

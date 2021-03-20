@@ -14,7 +14,7 @@ class RegisterViewController: UIViewController{
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passTF: UITextField!
     @IBOutlet weak var confirmPassTF: UITextField!
-    
+    @IBOutlet weak var nameTF: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,19 +24,22 @@ class RegisterViewController: UIViewController{
     
     @IBAction func createAccBtn(_ sender: Any) {
         
-        if (emailTF.hasText && passTF.text == confirmPassTF.text){
+        if (nameTF.hasText && emailTF.hasText && passTF.text == confirmPassTF.text){
+            let nameText: String = nameTF.text!
             let emailText: String = emailTF.text!
             let passText: String = passTF.text!
             let confirmPassText: String = passTF.text!
-            
-            print(emailText)
-            print(passText)
-            print(confirmPassText)
-            
-            let contactArr: [Contact] = []
-                
-            NetworkManager.shared.saveUser(userEmail: emailText, userPass: passText, contacts: contactArr)
-            
+
+            NetworkManager.shared.register(name: nameText, email: emailText, pass: passText, confirmPass: confirmPassText, completionHandler: {
+                    success in
+                    
+                if success {
+                    self.alert(alertText: "Se ha creado un usuario.")
+                } else {
+                    self.alert(alertText: "Ha habido un error.")
+                }
+            })
+
         } else if (passTF.text != confirmPassTF.text){
             let text: String = "La contraseña debe coincidir."
             alert(alertText: text)
