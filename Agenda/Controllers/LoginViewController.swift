@@ -20,10 +20,12 @@ class LoginViewController: UIViewController {
     
     @IBAction func okBtn(_ sender: Any) {
         
+        //SPINNER
         let activityIndicator = UIActivityIndicatorView(style: .white) // Create the activity indicator
         view.addSubview(activityIndicator) // add it as a  subview
         activityIndicator.center = CGPoint(x: view.frame.size.width*0.5, y: view.frame.size.height*0.75) // put in the middle
         activityIndicator.startAnimating() // Start animating
+        // SPINNER
         
         let emailText = emailTF.text
         let passText = passTF.text
@@ -36,14 +38,16 @@ class LoginViewController: UIViewController {
                 
                 if success {
                     activityIndicator.stopAnimating()
+                    UserData.shared.password = self.passTF.text!
                     self.performSegue(withIdentifier: "contactsSegue", sender: Any?.self)
                 } else {
+                    self.alert(alertText: "No se ha encontrado ningún usuario con ese mail y/o contraseña.")
                     activityIndicator.stopAnimating()
-                    self.alert(alertText: "Ha habido un error.")
                 }
             })
         } else {
             alert(alertText: "Debes rellenar todos los campos.")
+            activityIndicator.stopAnimating()
         }
     }
     

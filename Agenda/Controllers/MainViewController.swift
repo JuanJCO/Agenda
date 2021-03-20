@@ -8,21 +8,24 @@
 import Foundation
 import UIKit
 
-class MainViewController: UIViewController{
+class MainViewController: UIViewController, UISearchBarDelegate{
 
     static var shared: MainViewController = MainViewController()
-    
-//    var currentUser: User?
-    
+    @IBOutlet weak var searchTF: UITextField!
     @IBOutlet weak var tv: UITableView!
+    @IBOutlet weak var cancelButtonOutlet: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
+        // SPINNER
+        let activityIndicator = UIActivityIndicatorView(style: .white) // Create the activity indicator
+        view.addSubview(activityIndicator) // add it as a  subview
+        activityIndicator.center = CGPoint(x: view.frame.size.width*0.5, y: view.frame.size.height*0.75) // put in the middle
+        activityIndicator.startAnimating() // Start animating
+        // SPINNER
+        
         NetworkManager.shared.showContacts(completionHandler: {
             contacts in
             
@@ -31,7 +34,23 @@ class MainViewController: UIViewController{
             print("ContactClass", ContactClass.shared.contactsArray)
             
             self.tv.reloadData()
+            
+            activityIndicator.stopAnimating()
         })
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tv.reloadData()
+    }
+    
+    @IBAction func searchBtn(_ sender: Any) {
+        
+        
+    }
+    
+    @IBAction func cancelBtn(_ sender: Any) {
     }
 }
 
@@ -46,13 +65,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ContactCell
         cell.labelCell.text = ContactClass.shared.contactsArray[indexPath.row].name
         cell.numberLabelCell.text = ContactClass.shared.contactsArray[indexPath.row].phone
+        cell.mailCell.text = ContactClass.shared.contactsArray[indexPath.row].mail
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         AgendaData.shared.row = indexPath.row
     }
-    
 }
 
 

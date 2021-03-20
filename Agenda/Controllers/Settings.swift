@@ -16,43 +16,80 @@ class Settings: UIViewController{
     @IBOutlet weak var passTF: UITextField!
     @IBOutlet weak var confirmPassTF: UITextField!
     
+    
     override func viewDidLoad() {
+        // SPINNER
+        let activityIndicator = UIActivityIndicatorView(style: .white) // Create the activity indicator
+        view.addSubview(activityIndicator) // add it as a  subview
+        activityIndicator.center = CGPoint(x: view.frame.size.width*0.5, y: view.frame.size.height*0.75) // put in the middle
+        activityIndicator.startAnimating() // Start animating
+        // SPINNER
+        
         NetworkManager.shared.getUser(completionHandler: { [self]
             user in
             
             if user != nil{
                 nameTF.text = user.user.name
                 mailTF.text = user.user.email
+                activityIndicator.stopAnimating()
             }
         })
     }
     
     @IBAction func okBTN(_ sender: Any) {
+        
+        print("entra")
+        
         if (passTF.hasText && confirmPassTF.hasText){
-            let passText: String = passTF.text!
-            let confirmPassText: String = confirmPassTF.text!
-            
-            if (passText == confirmPassText){
-                AgendaData.shared.currentUser.userPass = confirmPassText
-                NetworkManager.shared.saveUser(userEmail: AgendaData.shared.currentUser.userEmail, userPass: AgendaData.shared.currentUser.userPass, contacts: AgendaData.shared.currentUser.contacts)
+            if (passTF.text == confirmPassTF.text){
+                UserData.shared.password = passTF.text!
                 
-                showToast(message: "Has cambiado tu contraseña.", seconds: 1.0)
-                
-                passTF.text = ""
-                confirmPassTF.text = ""
+                updateUserRequest()
             } else {
                 alert(message: "Las contraseñas no coinciden.")
             }
-        } else {
-            alert(message: "Debes rellenar todos los campos.")
         }
+        if (passTF.hasText && !confirmPassTF.hasText || !passTF.hasText && confirmPassTF.hasText){
+            alert(message: "Las contraseñas no coinciden.")
+        }
+        
+        print("sin contrasena")
+        updateUserRequest()
+    }
+    
+    func updateUserRequest(){
+        // SPINNER
+        let activityIndicator = UIActivityIndicatorView(style: .white) // Create the activity indicator
+        view.addSubview(activityIndicator) // add it as a  subview
+        activityIndicator.center = CGPoint(x: view.frame.size.width*0.5, y: view.frame.size.height*0.75) // put in the middle
+        activityIndicator.startAnimating() // Start animating
+        // SPINNER
+        
+        NetworkManager.shared.updateUser(name: nameTF.text!, mail: mailTF.text!, password: UserData.shared.password, completionHandler: {
+            success in
+            
+            if success {
+                print(self.nameTF.text)
+                self.showToast(message: "Has actualizado tus datos", seconds: 1)
+                activityIndicator.stopAnimating()
+                
+            }
+        })
     }
     
     @IBAction func deleteAccBTN(_ sender: Any) {
+        // SPINNER
+        let activityIndicator = UIActivityIndicatorView(style: .white) // Create the activity indicator
+        view.addSubview(activityIndicator) // add it as a  subview
+        activityIndicator.center = CGPoint(x: view.frame.size.width*0.5, y: view.frame.size.height*0.75) // put in the middle
+        activityIndicator.startAnimating() // Start animating
+        // SPINNER
+        
         NetworkManager.shared.deleteUser(completionHandler: {
             success in
             
             if success {
+                activityIndicator.stopAnimating()
                 self.performSegue(withIdentifier: "deleteSegue", sender: Any?.self)
             }
         })

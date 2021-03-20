@@ -12,7 +12,8 @@ class ContactCell: UITableViewCell{
     
     @IBOutlet weak var labelCell: UILabel!
     @IBOutlet weak var numberLabelCell: UILabel!
- 
+    @IBOutlet weak var mailCell: UILabel!
+    
     override func awakeFromNib() {
     super.awakeFromNib()
 

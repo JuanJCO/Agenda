@@ -20,3 +20,10 @@ struct UserClass: Codable {
 
     }
 }
+
+class UserData{
+    static var shared: UserData  = UserData()
+    
+    var password = ""
+    
+}

@@ -24,6 +24,12 @@ class AddContactViewController: UIViewController{
     
     @IBAction func addBtn(_ sender: Any) {
         if (nameTF.hasText && phoneTF.hasText) {
+            // SPINNER
+            let activityIndicator = UIActivityIndicatorView(style: .white) // Create the activity indicator
+            view.addSubview(activityIndicator) // add it as a  subview
+            activityIndicator.center = CGPoint(x: view.frame.size.width*0.5, y: view.frame.size.height*0.75) // put in the middle
+            activityIndicator.startAnimating() // Start animating
+            // SPINNER
             
             let nameText = nameTF.text!
             let phoneText = phoneTF.text!
@@ -37,6 +43,13 @@ class AddContactViewController: UIViewController{
                     nameTF.text = nil
                     phoneTF.text = nil
                     mailTF.text = nil
+                    
+                    NetworkManager.shared.showContacts(completionHandler: {
+                        contacts in
+                        
+                        ContactClass.shared.contactsArray = contacts
+                        activityIndicator.stopAnimating()
+                    })
                 } else {
                     self.alert(alertText: "Ha habido un error.")
                 }
