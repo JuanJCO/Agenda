@@ -24,12 +24,14 @@ class AddContactViewController: UIViewController{
     
     @IBAction func addBtn(_ sender: Any) {
         if (nameTF.hasText && phoneTF.hasText) {
-            // SPINNER
-            let activityIndicator = UIActivityIndicatorView(style: .white) // Create the activity indicator
+            //SPINNER
+            let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large) // Create the spinner
             view.addSubview(activityIndicator) // add it as a  subview
-            activityIndicator.center = CGPoint(x: view.frame.size.width*0.5, y: view.frame.size.height*0.75) // put in the middle
+            activityIndicator.color = UIColor.black
+            activityIndicator.center = CGPoint(x: view.frame.size.width*0.5, y: view.frame.size.height*0.5) // put in the middle
+            disableView()
             activityIndicator.startAnimating() // Start animating
-            // SPINNER
+            //SPINNER
             
             let nameText = nameTF.text!
             let phoneText = phoneTF.text!
@@ -48,6 +50,7 @@ class AddContactViewController: UIViewController{
                         contacts in
                         
                         ContactClass.shared.contactsArray = contacts
+                        self.ableView()
                         activityIndicator.stopAnimating()
                     })
                 } else {
@@ -67,6 +70,16 @@ class AddContactViewController: UIViewController{
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         // show the alert
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func disableView(){
+        view.isUserInteractionEnabled = false
+        view.alpha = 0.5
+    }
+    
+    func ableView(){
+        view.isUserInteractionEnabled = true
+        view.alpha = 1
     }
 }
 

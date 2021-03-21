@@ -21,10 +21,13 @@ class LoginViewController: UIViewController {
     @IBAction func okBtn(_ sender: Any) {
         
         //SPINNER
-        let activityIndicator = UIActivityIndicatorView(style: .white) // Create the activity indicator
+        let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large) // Create the spinner
         view.addSubview(activityIndicator) // add it as a  subview
-        activityIndicator.center = CGPoint(x: view.frame.size.width*0.5, y: view.frame.size.height*0.75) // put in the middle
+        activityIndicator.color = UIColor.black
+        activityIndicator.center = CGPoint(x: view.frame.size.width*0.5, y: view.frame.size.height*0.5) // put in the middle
+        disableView()
         activityIndicator.startAnimating() // Start animating
+        
         // SPINNER
         
         let emailText = emailTF.text
@@ -39,14 +42,17 @@ class LoginViewController: UIViewController {
                 if success {
                     activityIndicator.stopAnimating()
                     UserData.shared.password = self.passTF.text!
+                    self.ableView()
                     self.performSegue(withIdentifier: "contactsSegue", sender: Any?.self)
                 } else {
                     self.alert(alertText: "No se ha encontrado ningún usuario con ese mail y/o contraseña.")
+                    self.ableView()
                     activityIndicator.stopAnimating()
                 }
             })
         } else {
             alert(alertText: "Debes rellenar todos los campos.")
+            self.ableView()
             activityIndicator.stopAnimating()
         }
     }
@@ -61,5 +67,14 @@ class LoginViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    func disableView(){
+        view.isUserInteractionEnabled = false
+        view.alpha = 0.5
+    }
+    
+    func ableView(){
+        view.isUserInteractionEnabled = true
+        view.alpha = 1
+    }
 }
 

@@ -19,12 +19,14 @@ class MainViewController: UIViewController, UISearchBarDelegate{
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        // SPINNER
-        let activityIndicator = UIActivityIndicatorView(style: .white) // Create the activity indicator
+        //SPINNER
+        let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large) // Create the spinner
         view.addSubview(activityIndicator) // add it as a  subview
-        activityIndicator.center = CGPoint(x: view.frame.size.width*0.5, y: view.frame.size.height*0.75) // put in the middle
+        activityIndicator.color = UIColor.black
+        activityIndicator.center = CGPoint(x: view.frame.size.width*0.5, y: view.frame.size.height*0.5) // put in the middle
+        disableView()
         activityIndicator.startAnimating() // Start animating
-        // SPINNER
+        //SPINNER
         
         NetworkManager.shared.showContacts(completionHandler: {
             contacts in
@@ -35,22 +37,13 @@ class MainViewController: UIViewController, UISearchBarDelegate{
             
             self.tv.reloadData()
             
+            self.ableView()
             activityIndicator.stopAnimating()
         })
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.tv.reloadData()
-    }
-    
-    @IBAction func searchBtn(_ sender: Any) {
-        
-        
-    }
-    
-    @IBAction func cancelBtn(_ sender: Any) {
     }
 }
 
@@ -71,6 +64,16 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         AgendaData.shared.row = indexPath.row
+    }
+    
+    func disableView(){
+        view.isUserInteractionEnabled = false
+        view.alpha = 0.5
+    }
+    
+    func ableView(){
+        view.isUserInteractionEnabled = true
+        view.alpha = 1
     }
 }
 
