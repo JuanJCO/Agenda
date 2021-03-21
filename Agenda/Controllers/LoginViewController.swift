@@ -27,7 +27,6 @@ class LoginViewController: UIViewController {
         activityIndicator.center = CGPoint(x: view.frame.size.width*0.5, y: view.frame.size.height*0.5) // put in the middle
         disableView()
         activityIndicator.startAnimating() // Start animating
-        
         // SPINNER
         
         let emailText = emailTF.text

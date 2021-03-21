@@ -19,16 +19,15 @@ class RegisterViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
     }
     
-    @IBAction func createAccBtn(_ sender: Any) {
+    @IBAction func createAccBtn(_ sender: UIButton) {
         //SPINNER
+        disableView()
         let activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.large) // Create the spinner
         view.addSubview(activityIndicator) // add it as a  subview
-        activityIndicator.color = UIColor.black
+        activityIndicator.color = UIColor.white
         activityIndicator.center = CGPoint(x: view.frame.size.width*0.5, y: view.frame.size.height*0.5) // put in the middle
-        disableView()
         activityIndicator.startAnimating() // Start animating
         //SPINNER
         
@@ -42,8 +41,8 @@ class RegisterViewController: UIViewController{
                     success in
                     
                 if success {
-                    self.ableView()
                     activityIndicator.stopAnimating()
+                    self.ableView()
                     print("Se ha creado el usuario")
                     self.performSegue(withIdentifier: "registerSegue", sender: Any?.self)
                 } else {
